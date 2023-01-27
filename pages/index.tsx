@@ -1,29 +1,45 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import styles from "@/styles/Home.module.css";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState, AppDispatch } from '@/redux/store'
-import { fetchProductData } from '@/redux/thunk/products'
-import { useEffect } from 'react'
-import { Product } from '@/types/types'
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "@/redux/store";
+import { fetchProductData } from "@/redux/thunk/products";
+import { useEffect } from "react";
+import { Product } from "@/types/types";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  InputBase,
+  Paper,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { Home as HomeIcon } from "@mui/icons-material";
+import { Search } from "@mui/icons-material";
+import FaceIcon from '@mui/icons-material/Face';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import FlagIcon from '@mui/icons-material/Flag';
 
 export default function Home() {
-  const products: Product[] = useSelector((state: RootState) => state.products.products);
+  const products: Product[] = useSelector(
+    (state: RootState) => state.products.products
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     // Perform localStorage action
-    const item = localStorage.getItem('cart')
-  }, [])
+    const item = localStorage.getItem("cart");
+  }, []);
 
   useEffect(() => {
     dispatch(fetchProductData());
-  }, [dispatch])
-  console.log(products)
+  }, [dispatch]);
+  console.log(products);
   return (
     <>
       <Head>
@@ -32,15 +48,73 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        {
+      <main>
+        {/* {
           products.map((product) => 
             <div key={crypto.randomUUID()}>
               <h1>{product.title}</h1>
             </div>
           )
-        }
+        } */}
+        <AppBar sx={{ background: "white" }}>
+          <Toolbar
+            sx={{ display: { xs: "flex" }, justifyContent: "space-around", alignItems: "center" }}
+          >
+            <Box sx={{position: "relative", left: "25px"}}>
+              <Typography
+                variant="h4"
+                sx={{ fontFamily: "inherit", color: "#F1641E !important" }}
+              >
+                Etsy
+              </Typography>
+            </Box>
+            <Box sx={{ position: "relative", left: "20px"}}>
+              <Paper
+                component="form"
+                sx={{
+                  p: "2px 4px",
+                  display: "flex",
+                  alignItems: "center",
+                  width: 400,
+                  boxShadow: "0px 0px 0px",
+                  justifyContent: "center",
+                  backgroundColor: "transparent"
+                }}
+              >
+                <InputBase
+                  sx={{
+                    border: "3px solid black",
+                    borderRadius: "30px",
+                    background: "#eee",
+                    height: "50px",
+                    flex: "0.9"
+                  }}
+                  placeholder="Search..."
+                />
+                <IconButton
+                  type="button"
+                  sx={{ p: "10px", position: "relative", right: "45px" }}
+                  aria-label="search"
+                >
+                  <Search />
+                </IconButton>
+              </Paper>
+            </Box>
+            <Box sx={{display: "flex", flex: "1", position: "relative", right: "20px", justifyContent: "space-evenly",alignItems: "center", gap: "10px"}}>
+                 <Typography sx={{display: { xs: "none", sm: "none", md: "inline"},color: "black", width: "50px"}}>sign in</Typography>
+                 <IconButton>
+                <FlagIcon />
+              </IconButton>
+              <IconButton>
+                <FaceIcon />
+              </IconButton>
+              <IconButton>
+                <ShoppingBasketIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
       </main>
     </>
-  )
+  );
 }
