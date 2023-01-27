@@ -5,6 +5,7 @@ const Category = () => {
   return (
     <div>
         <h1>{router.query.category}</h1>
+        <p>{"new commit"}</p>
     </div>
   )
 }
