@@ -2,7 +2,8 @@ import { Product } from "../../types/types";
 import { productActions } from "../slices/productsSlice";
 import { AppDispatch } from "../store";
 
-const url = "http://localhost:3000/api/products";
+// const url = "http://localhost:3000/api/products";
+const url = "https://fakestoreapi.com/products";
 
 export function fetchProductData() {
     return async (dispatch: AppDispatch) => {
